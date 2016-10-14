@@ -68,14 +68,11 @@ extern crate errno;
 extern crate thread_id;
 extern crate test;
 #[cfg(feature = "context")] extern crate context;
-<<<<<<< HEAD
 #[cfg(feature = "termios")] extern crate termios;
+#[cfg(feature = "openssl-sys")] extern crate openssl_sys;
 
 //------
 // Core system
-=======
-#[cfg(feature = "openssl-sys")] extern crate openssl_sys;
->>>>>>> implements SSL modules
 
 macro_rules! libc_try {
     ($expr:expr) => (
@@ -180,10 +177,6 @@ pub use self::signal_set::{Signal, SignalSet, raise};
 
 //-----------------------
 // Posix specific
-
-pub mod socket_base;
-
-pub mod ip;
 
 #[cfg(unix)]
 pub mod local;

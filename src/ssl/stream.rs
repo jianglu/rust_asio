@@ -1,6 +1,5 @@
 use std::io;
-use io_service::{IoObject, IoService};
-use async_result::{Handler, AsyncResult};
+use io_service::{IoObject, IoService, Handler, AsyncResult};
 use stream::Stream;
 use super::SslContext;
 
@@ -51,11 +50,11 @@ impl<S: Stream> IoObject for SslStream<S> {
 
 impl<S: Stream> Stream for SslStream<S> {
     fn async_read_some<F: Handler<usize>>(&self, buf: &mut [u8], handler: F) -> F::Output {
-        handler.async_result().result(self.io_service())
+        handler.async_result().get(self.io_service())
     }
 
     fn async_write_some<F: Handler<usize>>(&self, buf: &[u8], handler: F) -> F::Output {
-        handler.async_result().result(self.io_service())
+        handler.async_result().get(self.io_service())
     }
 
     fn read_some(&self, buf: &mut [u8]) -> io::Result<usize> {
